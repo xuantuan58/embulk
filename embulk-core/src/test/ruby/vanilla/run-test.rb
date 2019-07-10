@@ -37,7 +37,11 @@ require 'embulk/java/bootstrap'
 require 'embulk'
 
 # "use_global_ruby_runtime" needs to be true because this test process starts from JRuby, the global instance.
-Java::org.embulk.EmbulkSetup::setup(Java::java.util.HashMap.new({"use_global_ruby_runtime": true}))
+system_config_properties = Java::java.util.Properties.new()
+system_config_properties.setProperty("use_global_ruby_runtime", "true")
+bootstrap = Java::org.embulk.EmbulkEmbed::Bootstrap.new;
+bootstrap.setSystemConfig(system_config_properties);
+Java::org.embulk.EmbulkRunner.new(bootstrap.initialize__method())
 
 Dir.glob("#{this_dir}/**/test{_,-}*.rb") do |file|
   require file.sub(/\.rb$/,'')

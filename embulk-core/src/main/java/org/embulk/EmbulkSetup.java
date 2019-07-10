@@ -8,9 +8,9 @@ import java.util.Map;
 /**
  * EmbulkSetup initiates an EmbulkRunner instance. It was originally implemented with Ruby in lib/embulk.rb.
  *
- * NOTE: Developers should not depend on this EmbulkSetup class. This class is created tentatively, and may be
- * re-implemented again in a different style.
+ * <p>EmbulkSetup is no longer used in embulk-core, and deprecated. It will be removed.
  */
+@Deprecated
 public class EmbulkSetup {
     public static EmbulkRunner setup(final Map<String, Object> systemConfigGiven) {
         final HashMap<String, Object> systemConfigModified = new HashMap<String, Object>(systemConfigGiven);
