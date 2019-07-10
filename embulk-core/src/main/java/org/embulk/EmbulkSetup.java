@@ -10,8 +10,10 @@ import java.util.Map;
  *
  * <p>EmbulkSetup is no longer used in embulk-core, and deprecated. It will be removed.
  */
-@Deprecated
+@Deprecated  // To be removed
 public class EmbulkSetup {
+    @SuppressWarnings("deprecation")  // Calling EmbulkEmbed.Bootstrap#setSystemConfigFromJson
+    @Deprecated
     public static EmbulkRunner setup(final Map<String, Object> systemConfigGiven) {
         final HashMap<String, Object> systemConfigModified = new HashMap<String, Object>(systemConfigGiven);
 
