@@ -17,7 +17,7 @@ Embulk has some deprecated classes and methods. This document is to summarize de
 
 `org.embulk.EmbulkEmbed` has replaced `EmbulkService`.
 
-`EmbulkService` is to be removed by v0.10 or earlier. Note that `EmbulkService` is constructed only in the Embulk core or user's code embedding Embulk. `EmbulkService` is not to be constructed from plugins.
+`org.embulk.EmbulkService` has been removed since Embulk v0.9.19. Note that `EmbulkService` is constructed only in the Embulk core, or by user's embedding Embulk in their code. `EmbulkService` is not to be constructed from plugins. The removal will not affect any plugin.
 
 * `org.embulk.EmbulkService`
 
