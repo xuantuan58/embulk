@@ -1,17 +1,22 @@
 package org.embulk.standards;
 
-import java.io.IOException;
-import java.util.zip.GZIPInputStream;
 import org.embulk.config.ConfigInject;
 import org.embulk.config.ConfigSource;
 import org.embulk.config.Task;
 import org.embulk.config.TaskSource;
 import org.embulk.spi.BufferAllocator;
 import org.embulk.spi.DecoderPlugin;
+import org.embulk.spi.Exec;
 import org.embulk.spi.FileInput;
 import org.embulk.spi.util.FileInputInputStream;
 import org.embulk.spi.util.InputStreamFileInput;
 import org.embulk.spi.util.InputStreamFileInput.InputStreamWithHints;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.EOFException;
+import java.io.IOException;
+import java.util.zip.GZIPInputStream;
 
 public class GzipFileDecoderPlugin implements DecoderPlugin {
     public interface PluginTask extends Task {
@@ -39,8 +44,12 @@ public class GzipFileDecoderPlugin implements DecoderPlugin {
                         if (!files.nextFile()) {
                             return null;
                         }
+                        int bufferSize = 8 * 1024;
+                        GZIPInputStream inputStream = Exec.isPreview() ? new PreviewGzipInputStream(files, bufferSize)
+                                : new GZIPInputStream(files, bufferSize);
+
                         return new InputStreamWithHints(
-                                new GZIPInputStream(files, 8 * 1024),
+                                inputStream,
                                 fileInput.hintOfCurrentInputFileNameForLogging().orElse(null)
                         );
                     }
@@ -51,4 +60,27 @@ public class GzipFileDecoderPlugin implements DecoderPlugin {
                     }
                 });
     }
+
+    public static class PreviewGzipInputStream extends GZIPInputStream {
+        public PreviewGzipInputStream(FileInputInputStream files, int size) throws IOException {
+            super(files, size);
+        }
+
+        /**
+         * EOFException is ignored in Preview because Preview aborts reading the entire GZipped stream,
+         * and it can cause an unexpected end of ZLIB input stream if the number sample rows (default is 15) are not fulfilled.
+         */
+        @Override
+        public int read(byte[] buf, int off, int len) throws IOException
+        {
+            try {
+                return super.read(buf, off, len);
+            } catch (EOFException ex) {
+                logger.warn("Abort reading GZipped stream. All preview_sample_buffer_bytes have been read");
+                return -1;
+            }
+        }
+    }
+
+    private static final Logger logger = LoggerFactory.getLogger(PreviewGzipInputStream.class);
 }
