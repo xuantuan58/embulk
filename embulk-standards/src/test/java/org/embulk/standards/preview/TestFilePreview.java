@@ -29,23 +29,31 @@ public class TestFilePreview {
     @Test
     public void changePreviewSampleBufferBytes() throws Exception {
         assertPreviewedRecords(embulk, "test_sample_buffer_bytes_load.yml", "test_sample_buffer_bytes_exec.yml",
-                "test_sample_buffer_bytes.csv", "test_sample_buffer_bytes_previewed.csv");
+                "test_sample_buffer_bytes.csv", "test_sample_buffer_bytes_previewed.csv", "csv");
+    }
+
+    @Test
+    public void testPreviewGzipFile() throws Exception {
+        final String zippedSourceResourceName = "test_preview_gzip_fle.csv.gz";
+        final String loadYamlResourceName = "test_preview_gzip_fle.yml";
+        final String resultCsvResourceName = "test_preview_gzip_fle_result.csv";
+        assertPreviewedRecords(embulk, loadYamlResourceName,null, zippedSourceResourceName, resultCsvResourceName, "gz");
     }
 
     private static void assertPreviewedRecords(TestingEmbulk embulk,
             String loadYamlResourceName, String sourceCsvResourceName, String resultCsvResourceName)
             throws IOException {
-        assertPreviewedRecords(embulk, loadYamlResourceName, null, sourceCsvResourceName, resultCsvResourceName);
+        assertPreviewedRecords(embulk, loadYamlResourceName, null, sourceCsvResourceName, resultCsvResourceName, "csv");
     }
 
     private static void assertPreviewedRecords(TestingEmbulk embulk,
-            String loadYamlResourceName, String execYamlResourceName, String sourceCsvResourceName, String resultCsvResourceName)
+            String loadYamlResourceName, String execYamlResourceName, String sourceResourceName, String resultCsvResourceName, String inputTempFileSuffix)
             throws IOException {
-        Path inputPath = embulk.createTempFile("csv");
+        Path inputPath = embulk.createTempFile(inputTempFileSuffix);
         Path outputPath = embulk.createTempFile("csv");
 
         // in: config
-        copyResource(RESOURCE_NAME_PREFIX + sourceCsvResourceName, inputPath);
+        copyResource(RESOURCE_NAME_PREFIX + sourceResourceName, inputPath);
         ConfigSource load = embulk.loadYamlResource(RESOURCE_NAME_PREFIX + loadYamlResourceName)
                 .set("path_prefix", inputPath.toAbsolutePath().toString());
 

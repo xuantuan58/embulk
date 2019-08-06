@@ -1,0 +1,116 @@
+type: file
+#path_prefix: test_preview_gzip_fle.csv.gz
+decoders:
+- {type: gzip}
+parser:
+  type: csv
+  charset: UTF-8
+  newline: LF
+  delimiter: ','
+  quote: '"'
+  escape: '"'
+  trim_if_not_quoted: false
+  skip_header_lines: 1
+  allow_extra_columns: false
+  allow_optional_columns: false
+  columns:
+  - {name: column_0, type: long}
+  - {name: column_1, type: string}
+  - {name: column_2, type: string}
+  - {name: column_3, type: string}
+  - {name: column_4, type: string}
+  - {name: column_5, type: string}
+  - {name: column_6, type: string}
+  - {name: column_7, type: string}
+  - {name: column_8, type: string}
+  - {name: column_9, type: string}
+  - {name: column_10, type: string}
+  - {name: column_11, type: string}
+  - {name: column_12, type: string}
+  - {name: column_13, type: string}
+  - {name: column_14, type: string}
+  - {name: column_15, type: string}
+  - {name: column_16, type: string}
+  - {name: column_17, type: string}
+  - {name: column_18, type: string}
+  - {name: column_19, type: string}
+  - {name: column_20, type: string}
+  - {name: column_21, type: string}
+  - {name: column_22, type: string}
+  - {name: column_23, type: string}
+  - {name: column_24, type: string}
+  - {name: column_25, type: string}
+  - {name: column_26, type: string}
+  - {name: column_27, type: string}
+  - {name: column_28, type: string}
+  - {name: column_29, type: string}
+  - {name: column_30, type: string}
+  - {name: column_31, type: string}
+  - {name: column_32, type: string}
+  - {name: column_33, type: string}
+  - {name: column_34, type: string}
+  - {name: column_35, type: string}
+  - {name: column_36, type: string}
+  - {name: column_37, type: string}
+  - {name: column_38, type: string}
+  - {name: column_39, type: string}
+  - {name: column_40, type: string}
+  - {name: column_41, type: string}
+  - {name: column_42, type: string}
+  - {name: column_43, type: string}
+  - {name: column_44, type: string}
+  - {name: column_45, type: string}
+  - {name: column_46, type: string}
+  - {name: column_47, type: string}
+  - {name: column_48, type: string}
+  - {name: column_49, type: string}
+  - {name: column_50, type: string}
+  - {name: column_51, type: string}
+  - {name: column_52, type: string}
+  - {name: column_53, type: string}
+  - {name: column_54, type: string}
+  - {name: column_55, type: string}
+  - {name: column_56, type: string}
+  - {name: column_57, type: string}
+  - {name: column_58, type: string}
+  - {name: column_59, type: string}
+  - {name: column_60, type: string}
+  - {name: column_61, type: string}
+  - {name: column_62, type: string}
+  - {name: column_63, type: string}
+  - {name: column_64, type: string}
+  - {name: column_65, type: string}
+  - {name: column_66, type: string}
+  - {name: column_67, type: string}
+  - {name: column_68, type: string}
+  - {name: column_69, type: string}
+  - {name: column_70, type: string}
+  - {name: column_71, type: string}
+  - {name: column_72, type: string}
+  - {name: column_73, type: string}
+  - {name: column_74, type: string}
+  - {name: column_75, type: string}
+  - {name: column_76, type: string}
+  - {name: column_77, type: string}
+  - {name: column_78, type: string}
+  - {name: column_79, type: string}
+  - {name: column_80, type: string}
+  - {name: column_81, type: string}
+  - {name: column_82, type: string}
+  - {name: column_83, type: string}
+  - {name: column_84, type: string}
+  - {name: column_85, type: string}
+  - {name: column_86, type: string}
+  - {name: column_87, type: string}
+  - {name: column_88, type: string}
+  - {name: column_89, type: string}
+  - {name: column_90, type: string}
+  - {name: column_91, type: string}
+  - {name: column_92, type: string}
+  - {name: column_93, type: string}
+  - {name: column_94, type: string}
+  - {name: column_95, type: string}
+  - {name: column_96, type: string}
+  - {name: column_97, type: string}
+  - {name: column_98, type: string}
+  - {name: column_99, type: string}
